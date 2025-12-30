@@ -188,11 +188,15 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       setState(() {
-        _error = 'Registrasi sukses. Silakan verifikasi email & login.';
         _loading = false;
-        // Kembali ke mode login setelah registrasi berhasil
-        _isRegisterMode = false;
       });
+
+      // Navigasi langsung ke dashboard setelah registrasi berhasil
+      if (widget.role == 'driver') {
+        Navigator.of(context).pushReplacementNamed('/driver');
+      } else if (widget.role == 'client') {
+        Navigator.of(context).pushReplacementNamed('/client');
+      }
     } on AuthException catch (e) {
       setState(() {
         _error = e.message;
